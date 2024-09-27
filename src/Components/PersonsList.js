@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPersons } from "../reduxToolKit/Slices/personSlice";
+import { deletePerson, fetchPersons } from "../reduxToolKit/Slices/personSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+
 
 export default function PersonsList() {
     const dispatch = useDispatch();
@@ -15,16 +17,27 @@ export default function PersonsList() {
         }
     }, [status, dispatch]);
 
+    const handleDelete = (personId) => {
+        dispatch(deletePerson(personId));
+      };
     
 
 
     return (
         <>
             <div className="w-[60%] h-[85%]  z-0 block">
+
                 <div className={"w-[100%] h-[18%] ml-7 pt-9 pl-7 shadow-xl "+ShapeStyle} >
                     <h1 className="text-white text-3xl font-sans font-bold ">Persons List</h1>
                     <p className="text-xs mt-1 mb-10 text-white/70">Scroll down to view more person details. You can edit or delete the selected person's information directly from the list.</p>
                 </div>
+                {
+                    persons.length === 0 && 
+                    <div className={"w-[100%] h-[80%] mt-[1%] ml-7 shadow-xl flex items-center justify-center text-white/70 flex-col " + ShapeStyle}>
+                         <i class="fa-solid fa-empty-set"></i>
+                        <p className="mt-7">No persons found. Please try adding a new person with complete information from the left section.</p>
+                    </div>
+                }
                 <div className="w-[100%] h-[82%] mt-2 pt-4 pb-4 overflow-y-auto block  ml-7">
                     
                 {persons.map(prs => (
@@ -43,12 +56,13 @@ export default function PersonsList() {
                         </div>
                         <div className="w-[25%] h-full flex justify-center items-center pt-5 pb-5">
                             <button type="submit" className="w-[40%] p-2 text-white ">Edit</button>
-                            <button className="w-[40%] p-2 bg-red-100 rounded-lg text-purple text-red-600 ">Delete</button>
+                            <button className="w-[40%] p-2 bg-red-100 rounded-lg text-purple text-red-600 " onClick={()=>handleDelete(prs.id)}>Delete</button>
                         </div>
                     </div>
                 ))}
                     
                 </div>
+
             </div>
         </>
         

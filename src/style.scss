@@ -1,9 +1,14 @@
 .imad{
-    animation: imad cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s forwards ;
+    animation: imad cubic-bezier(0.175, 0.885, 0.32, 1.15) .3s forwards ;
+    transition: ease-in-out font-size; 
+    overflow: hidden;
+    p{
+        width: 100%;color: rgb(112, 112, 112);margin-bottom: 100px;margin-top: 100px;
+        
+    }
 }
 @keyframes imad {
-    0%{width: 0;height: 0;top: 50%;left: 50%;opacity: 0;}
-    60%{top:0%;left:0%;opacity: 0;}
-    80%{opacity: 0%}
+    0%{scale: 0%;opacity: 0;}
+    30%{opacity: 10%;}
 
 }

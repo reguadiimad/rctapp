@@ -37,6 +37,25 @@ export const addPerson = createAsyncThunk(
     }
   }
 );
+
+export const deletePerson = createAsyncThunk(
+  'person/deletePerson',
+  async(presonId, {rejectWithValue}) => {
+    try{
+      const response = await fetch(`http://127.0.0.1:8000/persons/delete/${presonId}/`,
+        {
+          method: 'DELETE',
+        })
+        if (!response.ok) {
+          throw new Error('Failed to delete the person');
+        }
+        return presonId;
+    }catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 const personsSlice = createSlice({
     name: 'persons',
     initialState,
@@ -64,6 +83,18 @@ const personsSlice = createSlice({
         })
         .addCase(addPerson.rejected, (state, action) => {
           state.loading = false;
+          state.error = action.payload;
+        })
+        .addCase(deletePerson.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(deletePerson.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          // Filter out the deleted person from the state
+          state.persons = state.persons.filter(person => person.id !== action.payload);
+        })
+        .addCase(deletePerson.rejected, (state, action) => {
+          state.status = 'failed';
           state.error = action.payload;
         });
     },

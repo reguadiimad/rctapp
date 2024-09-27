@@ -2,6 +2,7 @@ import PersonsList from "./Components/PersonsList";
 import SideMenu from "./Components/SIdeMenu";
 import './style.scss'
 import './index'
+import 'font-awesome/css/font-awesome.min.css';
 
 function App() {
   

@@ -17,6 +17,7 @@ const ConfermationModel = ({ isVisible, firstName, lastName, onClose}) => {
     if(!isVisible)return null
         return (
             <div className='flex items-center justify-center absolute w-full h-full top-0 left-0 backdrop-blur-lg bg-white/50 imad'>
+                
             <div className='w-[70%]  text-sm'>
 
                     <p className='m-auto w-full text-center  text-black/80'>
